@@ -1,0 +1,38 @@
+ html, body {
+  overflow-x: hidden;
+  background-color: #1c1c23
+}
+
+@import "tailwindcss";
+::selection {
+  background: #000;
+  color: greenyellow;
+}
+
+/* Font */
+@font-face {
+  font-family: gilroy;
+  src: url(assets/Fonts/gilroy.ttf);  
+}
+@font-face {
+  font-family: logo;
+  src: url(assets/Fonts/Azonix.otf);  
+}
+@font-face {
+  font-family: mona-sans;
+  src: url(assets/Fonts/mona-sans.ttf);  
+}
+
+/*Scrollbar */
+::-webkit-scrollbar{
+  width: 8px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: gray;
+  border-radius: 16px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background: #fff;
+}
+
