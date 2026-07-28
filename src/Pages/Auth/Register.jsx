@@ -36,8 +36,8 @@ const Register = () => {
         // We received a clean JSON error from the backend
         message = error.response.data.message;
       } else if (error.message === 'Network Error') {
-        // This usually means CORS blocked it or backend is offline
-        message = 'Network error: Cannot reach the server. Are you on the right port?';
+        // This usually means CORS blocked it, backend is offline, or Vercel blocked a large file payload (413)
+        message = 'Network Error: Cannot reach the server, or the uploaded file is too large (Vercel max 4.5MB).';
       } else if (error.message) {
         // Fallback to whatever axios tells us
         message = error.message;
@@ -148,7 +148,18 @@ const Register = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  {...register('avatar', { required: 'Avatar is required' })}
+                  {...register('avatar', { 
+                    required: 'Avatar is required',
+                    validate: (value) => {
+                      if (value && value[0]) {
+                        const maxSize = 4 * 1024 * 1024; // 4MB in bytes
+                        if (value[0].size > maxSize) {
+                          return 'Image size is too big. Maximum allowed size is 4MB.';
+                        }
+                      }
+                      return true;
+                    }
+                  })}
                   className="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20"
                 />
               </div>

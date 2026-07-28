@@ -30,6 +30,11 @@ This file serves as a living record of all changes, updates, and features added 
 4. Update `CORS_ORIGIN` with your new Frontend URL.
 5. **CRITICAL:** Go to the **Deployments** tab on the Backend and **Redeploy** the backend so the new environment variable takes effect.
 
+### [July 28, 2026] - Frontend Image Size Validation
+**What was changed:**
+- **Modified `src/Pages/Auth/Register.jsx`:** Added a validation check to the avatar file input using `react-hook-form`. It now prevents users from selecting an image larger than 4MB, showing a helpful UI error ("Image size is too big. Maximum allowed size is 4MB."). This prevents the Vercel 4.5MB serverless payload limit from being hit, which previously resulted in a confusing fake CORS "Network Error".
+- **Updated Error Message:** The generic "Network Error" catch block in the register function was updated to mention Vercel's 4.5MB limit, providing better feedback if it happens in the future.
+
 ---
 
 *(Future updates will be added below this line)*
