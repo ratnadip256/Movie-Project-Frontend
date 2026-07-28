@@ -11,13 +11,6 @@
    color: greenyellow;
  }
 
- /* ─────────────────────────────────────────────
-   Font Configuration
-   Google Fonts (Outfit, Inter, Audiowide) are loaded in index.html.
-   Components use font-[gilroy] and font-[mona-sans] (Tailwind arbitrary values),
-   which set font-family literally to "gilroy" or "mona-sans".
-   We override those names to point to the Google Font equivalents.
-   ───────────────────────────────────────────── */
 
  /* Tailwind theme tokens (enables font-gilroy, font-mona-sans classes) */
  @theme {
@@ -26,21 +19,17 @@
    --font-logo: "Audiowide", sans-serif;
  }
 
- /* Override arbitrary values: font-[gilroy] → Outfit, font-[mona-sans] → Inter */
- [style*="font-family: gilroy"],
- [style*="font-family:gilroy"] {
-   font-family: "Outfit", sans-serif !important;
- }
+ .font-\[gilroy\] {
+  font-family: "Outfit", sans-serif !important;
+}
 
- [style*="font-family: mona-sans"],
- [style*="font-family:mona-sans"] {
-   font-family: "Inter", sans-serif !important;
- }
+.font-\[mona-sans\] {
+  font-family: "Inter", sans-serif !important;
+}
 
- [style*="font-family: logo"],
- [style*="font-family:logo"] {
-   font-family: "Audiowide", sans-serif !important;
- }
+.font-\[logo\] {
+  font-family: "Audiowide", sans-serif !important;
+}
 
  /*Scrollbar */
  ::-webkit-scrollbar {

@@ -70,7 +70,7 @@ const Home = () => {
         <div className="mt-6 ml-10 flex justify-between items-center relative z-10 bg-[#1c1c23]">
           <StyledWrapper />
 
-          <div className="font-[gilroy] bg-[#1c1c23] flex font-semibold rounded-2xl mr-10 px-4 py-2 p-1 text-white border border-[#212121] transition-all duration-300 shadow-[5px_5px_12px_#000,-5px_-5px_12px_#2f2f2f] active:text-[#666] active:shadow-[inset_4px_4px_12px_#000,inset_-4px_-4px_12px_#1f1f1f] z-10">
+          <div className="font-gilroy bg-[#1c1c23] flex font-semibold rounded-2xl mr-10 px-4 py-2 p-1 text-white border border-[#212121] transition-all duration-300 shadow-[5px_5px_12px_#000,-5px_-5px_12px_#2f2f2f] active:text-[#666] active:shadow-[inset_4px_4px_12px_#000,inset_-4px_-4px_12px_#1f1f1f] z-10">
             <Link to="/trending_movies">
               View All <i className="ri-share-circle-line"></i>
             </Link>
@@ -82,7 +82,7 @@ const Home = () => {
         <TopRatedContext.Provider value={{ top }}>
           <div className="mt-5 ml-10 bg-[#1c1c23] flex justify-between relative z-10">
             <TopRatedButton />
-            <div className="font-[gilroy] bg-[#1c1c23] flex font-semibold rounded-2xl mr-10 px-4 py-2 p-1 text-white border border-[#212121] transition-all duration-300 shadow-[5px_5px_12px_#000,-5px_-5px_12px_#2f2f2f] active:text-[#666] active:shadow-[inset_4px_4px_12px_#000,inset_-4px_-4px_12px_#1f1f1f] z-10">
+            <div className="font-gilroy bg-[#1c1c23] flex font-semibold rounded-2xl mr-10 px-4 py-2 p-1 text-white border border-[#212121] transition-all duration-300 shadow-[5px_5px_12px_#000,-5px_-5px_12px_#2f2f2f] active:text-[#666] active:shadow-[inset_4px_4px_12px_#000,inset_-4px_-4px_12px_#1f1f1f] z-10">
               <Link to="/all_Top_rated_movies">
                 View All <i className="ri-share-circle-line"></i>
               </Link>
