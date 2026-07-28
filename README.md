@@ -40,6 +40,11 @@ This file serves as a living record of all changes, updates, and features added 
 **Root Cause:** The backend was setting auth cookies with `httpOnly: true, secure: true` but was **missing `sameSite: 'none'`**. Because the frontend and backend are on different domains (cross-site), all modern browsers block cookies that don't have `sameSite: 'none'`. So the cookies were never stored in the browser, `fetchProfile()` inside `AuthProvider` would fail on every page load, and the `ProtectedRoute` would kick the user back to `/login`.
 **Fix (Backend):** Updated all `cookie()` and `clearCookie()` calls in `src/controller/user.controller.js` to include `sameSite: "none"`. This tells the browser that this cookie is allowed to be sent in cross-origin requests.
 
+### [July 28, 2026] - Fix: Missing Fonts on Deployment
+**Bug:** Custom fonts (Gilroy, Azonix, Mona Sans) were not showing on the deployed site — everything was using the browser's default font.
+**Root Cause:** The original `@font-face` rules in `index.css` pointed to local files (`assets/Fonts/gilroy.ttf`, etc.) that were never committed to Git. The `src/assets/Fonts/` folder was completely missing from the repository.
+**Fix:** Replaced all local `@font-face` declarations with CDN-hosted versions (jsDelivr / GitHub CDN). Fonts now load from the internet — no local files needed.
+
 ---
 
 *(Future updates will be added below this line)*

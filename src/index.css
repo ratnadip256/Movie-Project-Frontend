@@ -9,18 +9,39 @@
   color: greenyellow;
 }
 
-/* Font */
+/* Gilroy Font (CDN) */
 @font-face {
   font-family: gilroy;
-  src: url(assets/Fonts/gilroy.ttf);  
+  src: url(https://cdn.jsdelivr.net/gh/nicholasgillespie/fonts@main/gilroy/gilroy-semibold.woff2) format("woff2");
+  font-weight: 600;
+  font-display: swap;
 }
 @font-face {
+  font-family: gilroy;
+  src: url(https://cdn.jsdelivr.net/gh/nicholasgillespie/fonts@main/gilroy/gilroy-bold.woff2) format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* Azonix Font - Logo (CDN) */
+@font-face {
   font-family: logo;
-  src: url(assets/Fonts/Azonix.otf);  
+  src: url(https://cdn.jsdelivr.net/gh/AlejandroRNatal/fonts@master/Azonix.otf) format("opentype");
+  font-display: swap;
+}
+
+/* Mona Sans Font (GitHub CDN) */
+@font-face {
+  font-family: mona-sans;
+  src: url(https://cdn.jsdelivr.net/gh/github/mona-sans@main/fonts/webfonts/Mona-Sans-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-display: swap;
 }
 @font-face {
   font-family: mona-sans;
-  src: url(assets/Fonts/mona-sans.ttf);  
+  src: url(https://cdn.jsdelivr.net/gh/github/mona-sans@main/fonts/webfonts/Mona-Sans-Bold.woff2) format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
 /*Scrollbar */
