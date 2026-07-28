@@ -35,6 +35,11 @@ This file serves as a living record of all changes, updates, and features added 
 - **Modified `src/Pages/Auth/Register.jsx`:** Added a validation check to the avatar file input using `react-hook-form`. It now prevents users from selecting an image larger than 4MB, showing a helpful UI error ("Image size is too big. Maximum allowed size is 4MB."). This prevents the Vercel 4.5MB serverless payload limit from being hit, which previously resulted in a confusing fake CORS "Network Error".
 - **Updated Error Message:** The generic "Network Error" catch block in the register function was updated to mention Vercel's 4.5MB limit, providing better feedback if it happens in the future.
 
+### [July 28, 2026] - Fix: OTP Redirect to Login Bug (sameSite Cookie)
+**Bug:** After verifying OTP and being redirected to Home `/`, the app immediately redirected back to `/login`.
+**Root Cause:** The backend was setting auth cookies with `httpOnly: true, secure: true` but was **missing `sameSite: 'none'`**. Because the frontend and backend are on different domains (cross-site), all modern browsers block cookies that don't have `sameSite: 'none'`. So the cookies were never stored in the browser, `fetchProfile()` inside `AuthProvider` would fail on every page load, and the `ProtectedRoute` would kick the user back to `/login`.
+**Fix (Backend):** Updated all `cookie()` and `clearCookie()` calls in `src/controller/user.controller.js` to include `sameSite: "none"`. This tells the browser that this cookie is allowed to be sent in cross-origin requests.
+
 ---
 
 *(Future updates will be added below this line)*
