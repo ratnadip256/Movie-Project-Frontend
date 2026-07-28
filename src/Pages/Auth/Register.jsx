@@ -31,7 +31,7 @@ const Register = () => {
     } catch (error) {
       // Show exact error reason to the user
       let message = 'Registration failed. Please try again.';
-      
+
       if (error.response && error.response.data && error.response.data.message) {
         // We received a clean JSON error from the backend
         message = error.response.data.message;
@@ -42,7 +42,7 @@ const Register = () => {
         // Fallback to whatever axios tells us
         message = error.message;
       }
-      
+
       setError('root', { type: 'server', message });
     } finally {
       setIsLoading(false);
@@ -123,7 +123,7 @@ const Register = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  {...register('password', { 
+                  {...register('password', {
                     required: 'Password is required',
                     minLength: { value: 8, message: 'Minimum 8 characters' }
                   })}
@@ -148,7 +148,7 @@ const Register = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  {...register('avatar', { 
+                  {...register('avatar', {
                     required: 'Avatar is required',
                     validate: (value) => {
                       if (value && value[0]) {
