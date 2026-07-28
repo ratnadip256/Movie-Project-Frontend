@@ -38,11 +38,4 @@ After your frontend is successfully deployed on Vercel, you will receive a publi
 
 If you skip this step, you will see "Network Error" or "CORS Error" in the browser console when trying to log in or register.
 
-## 5. Summary Checklist
-- [x] `vercel.json` is ready.
-- [ ] Push code to GitHub.
-- [ ] Import to Vercel, set Root Directory to `Frontend`.
-- [ ] Add `VITE_API_BASE_URL` and `VITE_TMDB_ACCESS_TOKEN` in Vercel.
-- [ ] Deploy frontend and copy the generated URL.
-- [ ] Update `CORS_ORIGIN` in the backend's Vercel settings with the new frontend URL.
-- [ ] Redeploy the backend.
+
