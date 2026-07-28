@@ -1,59 +1,58 @@
- html, body {
-  overflow-x: hidden;
-  background-color: #1c1c23
-}
+ html,
+ body {
+   overflow-x: hidden;
+   background-color: #1c1c23
+ }
 
-@import "tailwindcss";
-::selection {
-  background: #000;
-  color: greenyellow;
-}
+ @import "tailwindcss";
 
-/* Gilroy Font (CDN) */
-@font-face {
-  font-family: gilroy;
-  src: url(https://cdn.jsdelivr.net/gh/nicholasgillespie/fonts@main/gilroy/gilroy-semibold.woff2) format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: gilroy;
-  src: url(https://cdn.jsdelivr.net/gh/nicholasgillespie/fonts@main/gilroy/gilroy-bold.woff2) format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
+ ::selection {
+   background: #000;
+   color: greenyellow;
+ }
 
-/* Azonix Font - Logo (CDN) */
-@font-face {
-  font-family: logo;
-  src: url(https://cdn.jsdelivr.net/gh/AlejandroRNatal/fonts@master/Azonix.otf) format("opentype");
-  font-display: swap;
-}
+ /* ─────────────────────────────────────────────
+   Font Configuration
+   Google Fonts (Outfit, Inter, Audiowide) are loaded in index.html.
+   Components use font-[gilroy] and font-[mona-sans] (Tailwind arbitrary values),
+   which set font-family literally to "gilroy" or "mona-sans".
+   We override those names to point to the Google Font equivalents.
+   ───────────────────────────────────────────── */
 
-/* Mona Sans Font (GitHub CDN) */
-@font-face {
-  font-family: mona-sans;
-  src: url(https://cdn.jsdelivr.net/gh/github/mona-sans@main/fonts/webfonts/Mona-Sans-Regular.woff2) format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: mona-sans;
-  src: url(https://cdn.jsdelivr.net/gh/github/mona-sans@main/fonts/webfonts/Mona-Sans-Bold.woff2) format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
+ /* Tailwind theme tokens (enables font-gilroy, font-mona-sans classes) */
+ @theme {
+   --font-gilroy: "Outfit", sans-serif;
+   --font-mona-sans: "Inter", sans-serif;
+   --font-logo: "Audiowide", sans-serif;
+ }
 
-/*Scrollbar */
-::-webkit-scrollbar{
-  width: 8px;
-  height: 3px;
-}
-::-webkit-scrollbar-thumb{
-  background-color: gray;
-  border-radius: 16px;
-}
-::-webkit-scrollbar-thumb:hover{
-  background: #fff;
-}
+ /* Override arbitrary values: font-[gilroy] → Outfit, font-[mona-sans] → Inter */
+ [style*="font-family: gilroy"],
+ [style*="font-family:gilroy"] {
+   font-family: "Outfit", sans-serif !important;
+ }
 
+ [style*="font-family: mona-sans"],
+ [style*="font-family:mona-sans"] {
+   font-family: "Inter", sans-serif !important;
+ }
+
+ [style*="font-family: logo"],
+ [style*="font-family:logo"] {
+   font-family: "Audiowide", sans-serif !important;
+ }
+
+ /*Scrollbar */
+ ::-webkit-scrollbar {
+   width: 8px;
+   height: 3px;
+ }
+
+ ::-webkit-scrollbar-thumb {
+   background-color: gray;
+   border-radius: 16px;
+ }
+
+ ::-webkit-scrollbar-thumb:hover {
+   background: #fff;
+ }
