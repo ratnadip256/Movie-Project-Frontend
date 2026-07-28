@@ -18,4 +18,18 @@ This file serves as a living record of all changes, updates, and features added 
 
 ---
 
+## 🛠️ Troubleshooting
+
+### Network error: Cannot reach the server (CORS Error)
+**Issue:** After deploying the frontend and trying to log in/register, you receive an error: `"Network error: Cannot reach the server. Are you on the right port?"`
+**Cause:** This happens when the Backend blocks the request due to Cross-Origin Resource Sharing (CORS) rules. The backend does not yet recognize your new Frontend Vercel URL.
+**Solution:**
+1. Copy your deployed Frontend Vercel URL (ensure there is no trailing `/`).
+2. Go to your Backend project in the Vercel Dashboard.
+3. Under **Settings -> Environment Variables**, find `CORS_ORIGIN`.
+4. Update `CORS_ORIGIN` with your new Frontend URL.
+5. **CRITICAL:** Go to the **Deployments** tab on the Backend and **Redeploy** the backend so the new environment variable takes effect.
+
+---
+
 *(Future updates will be added below this line)*
