@@ -7,30 +7,68 @@ export const axiosInstance = axios.create({
   withCredentials: true, 
 });
 
-// Response interceptor to handle 401s and refresh tokens
+// Request interceptor to attach Authorization header from localStorage
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor to handle 401s, token persistence, and network errors
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Automatically extract and store tokens if returned in JSON response payload
+    const payloadData = response.data?.data;
+    if (payloadData?.accessToken) {
+      localStorage.setItem('accessToken', payloadData.accessToken);
+    }
+    if (payloadData?.refreshToken) {
+      localStorage.setItem('refreshToken', payloadData.refreshToken);
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
+
+    // Handle Network Errors (DNS failure, network timeout, Jio ISP blocking)
+    if (!error.response) {
+      const customError = new Error(
+        "Network connection error. Please check your SIM/Wi-Fi connection or try again."
+      );
+      customError.isNetworkError = true;
+      return Promise.reject(customError);
+    }
     
-    // If the error status is 401 and there is no originalRequest._retry flag,
-    // it means the token has expired and we need to refresh it
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      // Prevent infinite loop if the refresh token call itself fails
+    // If the error status is 401 and there is no originalRequest._retry flag
+    if (error.response && error.response.status === 401 && originalRequest && !originalRequest._retry) {
       if (originalRequest.url === '/refresh-token') {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         return Promise.reject(error);
       }
       
       originalRequest._retry = true;
       try {
-        await axiosInstance.post('/refresh-token');
-        // If successful, the new secure cookies are automatically set by the browser.
-        // We can immediately retry the original request.
+        const storedRefreshToken = localStorage.getItem('refreshToken');
+        const refreshRes = await axiosInstance.post('/refresh-token', {
+          refreshToken: storedRefreshToken,
+        });
+
+        const newAccessToken = refreshRes.data?.data?.accessToken;
+        if (newAccessToken) {
+          localStorage.setItem('accessToken', newAccessToken);
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        }
+
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // If refresh token fails, we just reject.
-        // The Redux state will handle setting isAuthenticated to false.
-        // React Router will smoothly redirect if they are on a protected route.
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         return Promise.reject(refreshError);
       }
     }

@@ -83,9 +83,18 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(verifyOtpThunk.fulfilled, (state) => {
+      .addCase(verifyOtpThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuthenticated = true; // successfully verified!
+        state.isAuthenticated = true;
+        if (action.payload?.data?.user) {
+          state.user = action.payload.data.user;
+        }
+        if (action.payload?.data?.accessToken) {
+          localStorage.setItem('accessToken', action.payload.data.accessToken);
+        }
+        if (action.payload?.data?.refreshToken) {
+          localStorage.setItem('refreshToken', action.payload.data.refreshToken);
+        }
       })
       .addCase(verifyOtpThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -96,6 +105,8 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
       })
 
       // Fetch Profile
@@ -108,7 +119,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.isInitialized = true;
       })
-      .addCase(fetchProfile.rejected, (state) => {
+      .addCase(fetchProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;
