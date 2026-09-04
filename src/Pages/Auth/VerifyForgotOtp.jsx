@@ -16,6 +16,13 @@ const VerifyForgotOtp = () => {
   const [timeLeft, setTimeLeft] = useState(60);
 
   useEffect(() => {
+    if (!email) {
+      toast.error("Session expired or invalid email. Please request a new password reset.");
+      navigate('/forgot-password');
+    }
+  }, [email, navigate]);
+
+  useEffect(() => {
     if (timeLeft <= 0) return;
 
     const timer = setInterval(() => {

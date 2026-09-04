@@ -141,6 +141,9 @@ const Register = () => {
             </div>
 
             <div>
+              <label className="block text-xs text-gray-400 mb-1 ml-1">
+                Avatar photo (Min 300KB, Max 4MB)
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FaImage className="h-4 w-4 text-gray-500" />
@@ -149,10 +152,14 @@ const Register = () => {
                   type="file"
                   accept="image/*"
                   {...register('avatar', {
-                    required: 'Avatar is required',
+                    required: 'Avatar photo is required',
                     validate: (value) => {
                       if (value && value[0]) {
+                        const minSize = 300 * 1024; // 300KB in bytes
                         const maxSize = 4 * 1024 * 1024; // 4MB in bytes
+                        if (value[0].size < minSize) {
+                          return 'Image size must be at least 300 KB.';
+                        }
                         if (value[0].size > maxSize) {
                           return 'Image size is too big. Maximum allowed size is 4MB.';
                         }

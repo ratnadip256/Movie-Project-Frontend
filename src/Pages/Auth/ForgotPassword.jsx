@@ -14,9 +14,10 @@ const ForgotPassword = () => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      await authApi.forgotPassword(data);
+      const email = data.email?.trim().toLowerCase();
+      await authApi.forgotPassword({ email });
       toast.success('Reset code sent to your email.');
-      navigate('/verify-forgot-otp', { state: { email: data.email } });
+      navigate('/verify-forgot-otp', { state: { email } });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to send reset code');
     } finally {
